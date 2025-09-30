@@ -13,11 +13,13 @@ hoofdroutine
 1. naar locatie gaan
 1. pakje afleveren
 
-Feedback: Hou rekening met de mogelijke acties van klanten of bezoekers voor die werkplek.
+- Feedback: Hou rekening met de mogelijke acties van klanten of bezoekers voor die werkplek.
 Bekijk hoe deze acties spanning en feedback kunnen voorzien voor de speler op een
 betekenisvolle manier.
+
 - Doel: Bepaal de verschillende onderdelen van de klus/werkdag die nodig zijn die te
 beëindigen
+
 - Fiero: Hou rekening met de belangrijke keuzes die een speler kan/moet maken om het doel
 te bereiken. Vergroot de impact van die keuzes door de emotionele impact van elke keuze te
 onderzoeken.
