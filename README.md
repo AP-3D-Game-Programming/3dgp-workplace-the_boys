@@ -27,99 +27,52 @@ onderzoeken.
 inspiratie
 
 
-📦 Magazijn Rush – Prototype regelschema
-🎯 Doel van het spel
+# 📦 Magazijn Rush
 
-Werk als team samen om alle bestellingen op tijd klaar te krijgen voordat het aantal rondes op is.
+## 🎯 Doel
+Werk samen om **5 bestellingen** af te ronden voordat **8 rondes** voorbij zijn.  
 
-🧑‍🤝‍🧑 Spelers & Rollen (4 spelers)
+---
 
-Iedere speler kiest of krijgt een rol:
+## 🧑‍🤝‍🧑 Spelers
+Iedere speler heeft dezelfde mogelijkheden (geen speciale rollen voor nu).  
 
-Orderpicker – mag 1 extra item dragen.
+---
 
-Inventarisbeheerder – mag 1 keer per ronde 2 items ruilen zonder actie te spenderen.
+## 🗺️ Bord
+- Teken een **grid van 4×4 vakjes**.  
+- Hoek linksboven = **Ingang**.  
+- Hoek rechtsonder = **Verzendzone**.  
+- Plaats in de overige vakjes willekeurig **items** (bijvoorbeeld letters A, B, C).  
 
-Transporteur – kan 1 extra veld bewegen per actie.
+---
 
-Planner – mag 1 speler per ronde een extra actie geven.
+## 🃏 Bestellingen
+- Maak 5 kaarten met combinaties van **2 of 3 items** (bv. `A + B`, `C + A + B`).  
+- Leg de bovenste kaart open → dat is de **actieve bestelling**.  
 
-🗺️ Speelbord
+---
 
-Teken een grid van 5×5 vakjes (magazijn).
+## 🔄 Beurtverloop
+Elke ronde:  
 
-Linksonder: Ingang (waar goederen aankomen).
+1. **Bestelling checken**  
+   - Bekijk welke goederen nodig zijn.  
 
-Rechtsboven: Verzendzone (waar orders klaargemaakt moeten worden).
+2. **Spelers doen acties**  
+   - Elke speler heeft **2 acties** per ronde:  
+     - **Bewegen** → 1 vakje verplaatsen.  
+     - **Item oppakken** → max 1 tegelijk dragen.  
+     - **Item neerleggen** → in de verzendzone.  
 
-Andere vakjes = rekken met goederen (plaats fiches of kaartjes).
+   ✅ Als alle gevraagde items in de verzendzone liggen = bestelling klaar. Trek meteen de volgende.  
 
-🃏 Kaarten
+3. **Ronde tellen**  
+   - Tel +1 ronde.  
 
-Bestellingen (min. 10 kaarten)
+---
 
-Elk toont 2–4 goederen + een deadline (bv. 3 rondes).
+## ⏳ Einde van het spel
+- **Gewonnen**: Alle 5 bestellingen zijn klaar vóór ronde 8.  
+- **Verloren**: Ronde 8 is voorbij en er liggen nog open bestellingen.  
 
-Gebeurtenissen (min. 10 kaarten)
-
-Voorbeelden:
-
-Heftruck kapot → 1 ronde geen zware lading verplaatsen.
-
-Spoedorder → voeg een extra bestelling toe.
-
-Stroompanne → spelers hebben maar 2 acties deze ronde.
-
-Hulpmiddelen (optioneel, voor balans)
-
-“Heftruck inzetten” → direct 2 items verplaatsen.
-
-“Overuren” → speler krijgt +1 actie.
-
-🔄 Spelbeurt
-
-Elke ronde bestaat uit 3 fasen:
-
-Nieuwe bestelling trekken
-
-Leg een bestelling open op tafel met deadline.
-
-Actiefase
-
-Elke speler heeft 3 acties (bewegen, oppakken, neerleggen, afleveren, kaart spelen).
-
-Maximaal 2 items per speler (behalve de Orderpicker: 3).
-
-Acties (kosten 1 actie tenzij anders vermeld):
-
-Bewegen: verplaats je pion 1 vakje orth/diagonaal.
-
-Oppakken: neem 1 item op uit rek of ingang.
-
-Neerleggen: plaats item terug in rek of in verzendzone.
-
-Afleveren: als alle juiste items van een bestelling in verzendzone liggen → voltooi bestelling.
-
-Gebeurtenisfase
-
-Trek 1 gebeurteniskaart en voer uit.
-
-Verminder de deadline van alle open bestellingen met 1.
-
-📉 Deadline & mislukte orders
-
-Als de deadline van een bestelling op 0 komt → order gemist. Leg hem af in de mislukte orders-stapel.
-
-Bij 3 gemiste orders = team verliest.
-
-✅ Winconditie
-
-Het team wint als alle bestellingen voltooid zijn vóór het einde van ronde 10.
-
-🎲 Prototype materialen
-
-Pen & papier voor het grid.
-
-Pionnetjes (munten, knopen, etc.).
-
-Fiches/kaartjes voor goederen (bijv. cirkels met “A”, “B”, “C”).
