@@ -8,7 +8,7 @@ er zijn 8 rondes totaal, met 5 bestellingen die moeten afgeraken.
 Start:
 
 - elke speler start bij de ingang (pion)
-- op het veld liggen pakketjes A, B en C (wit, blauw, rood) die je naar de 
+- op het veld liggen pakketjes A, B en C (wit, blauw, rood).
 - er zijn 5 bestelling kaartjes met vb. A+B of A+B+C (combinaties)
 - de bedoeling is om de bestelling in de verzendzone te krijgen
 - als de bestelling is afgerond, dan draai je de 2de bestelling om, en zo voort tot 5.
