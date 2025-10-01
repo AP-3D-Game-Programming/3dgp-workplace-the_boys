@@ -5,6 +5,7 @@ Magazijn Rush is een spel dat met 4 spelers wordt gespeeld,
 er zijn 8 rondes totaal, met 5 bestellingen die moeten afgeraken.
 
 Start:
+
 elke speler start bij de ingang (pion)
 op het veld liggen pakketjes A, B en C (wit, blauw, rood) die je naar de 
 er zijn 5 bestelling kaartjes met vb. A+B of A+B+C (combinaties)
