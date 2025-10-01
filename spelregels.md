@@ -1,6 +1,7 @@
 Magazijn Rush
 
-Korte samenvatting
+Korte samenvatting:
+
 Magazijn Rush is een spel dat met 4 spelers wordt gespeeld, 
 er zijn 8 rondes totaal, met 5 bestellingen die moeten afgeraken.
 
@@ -16,6 +17,8 @@ Spelregels:
 
 Beurt: Elke speler voert achter elkaar zijn/haar beurt uit.
 Tijdens een beurt mag een speler 2 acties uitvoeren (bewegen, item oppakken, item neerleggen).
-De doorgeven-actie is gratis en kost dus geen actiepunt.
+Een speler mag maar maximum 1 item vasthouden (A, B of C) ten alle tijden.
+De doorgeven-actie is gratis en kost dus geen actiepunt. (Kan alleen als je horizontaal of verticaal staat tegen een andere speler)
 Als alle spelers hun beurt hebben gedaan, is 1 ronde voorbij.
 Daarna start een nieuwe ronde met dezelfde stappen.
+Probeer alle bestellingen af te ronden voor ronde 8 gedaan is.
