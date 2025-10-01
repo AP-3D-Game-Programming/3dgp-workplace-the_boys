@@ -30,30 +30,78 @@ inspiratie
 # 📦 Magazijn Rush
 
 ## 🎯 Doel
-Werk samen om **5 bestellingen** af te ronden voordat **8 rondes** voorbij zijn.  
+Werk samen om **zo veel mogelijk bestellingen** af te ronden voordat **8 rondes** voorbij zijn.  
 
 ---
 
 ## 🧑‍🤝‍🧑 Spelers
 Iedere speler heeft dezelfde mogelijkheden (geen speciale rollen voor nu).  
+Alle spelers starten samen bij de **Ingang** (linksboven op het bord).
 
 ---
 
 ## 🗺️ Bord
 - Teken een **grid van 4×4 vakjes**.  
-- Hoek linksboven = **Ingang**.  
-- Hoek rechtsonder = **Verzendzone**.  
-- Plaats in de overige vakjes willekeurig **items** (bijvoorbeeld letters A, B, C).  
+- Hoek linksboven = **Ingang** (hier ligt de vullijn met items klaar om aangevuld te worden).  
+- Hoek rechtsonder = **Verzendzone** (hier moeten de items worden neergelegd om bestellingen te voltooien).  
+- Plaats in de overige vakjes **1 item per vakje** (gebruik gekleurde fiches:  
+  🔵 Blauw (B), 🟢 Groen (G), 🔴 Rood (R), ⚫ Grijs (Z), 🟡 Geel (Y)).
+
+---
+
+## 🔁 Aanvulsysteem: Vullijn met items
+- De vullijn met itemfiches ligt **bij de Ingang** (links bovenaan het bord).
+- Na het afronden van een bestelling trek je voor elk gebruikt item een fiche van deze vullijn.
+- Plaats het getrokken item in een willekeurig leeg vakje op het bord (behalve de Ingang en Verzendzone).
+- Zo blijven er altijd nieuwe items op het bord om te verzamelen.
+- Is de vullijn leeg? Dan worden geen nieuwe items meer toegevoegd.
 
 ---
 
 ## 🃏 Bestellingen
-- Maak 5 kaarten met combinaties van **2 of 3 items** (bv. `A + B`, `C + A + B`).  
-- Leg de bovenste kaart open → dat is de **actieve bestelling**.  
+- Maak 10 bestellingskaarten met combinaties van **2–4 items**.
+- Leg de bovenste kaart open → dat is de **actieve bestelling**.
+- Elke bestelling heeft een **deadline** (in rondes) en **punten**.
+- Bij te laat afgeleverd krijg je de helft van de punten.
+
+### 🎨 Kleuren & items:
+| Kleur  | Item |
+|--------|------|
+| 🔵 Blauw | B |
+| 🟢 Groen | G |
+| 🔴 Rood | R |
+| ⚫ Grijs | Z |
+| 🟡 Geel | Y |
+
+### 📋 Bestelkaarten
+
+| # | Items              | Deadline (rondes) | Punten | Bij te laat |
+|---|--------------------|-------------------|--------|-------------|
+| 1 | 🔵 + 🟢             | 2                 | 2      | 1           |
+| 2 | 🔴 + 🟡 + 🟢        | 3                 | 4      | 2           |
+| 3 | ⚫ + 🔴             | 2                 | 2      | 1           |
+| 4 | 🟢 + 🔵 + ⚫ + 🟡    | 4                 | 6      | 3           |
+| 5 | 🔴 + 🔴 + 🟢        | 3                 | 4      | 2           |
+| 6 | 🟡 + ⚫             | 2                 | 2      | 1           |
+| 7 | 🔵 + 🟢 + ⚫         | 3                 | 4      | 2           |
+| 8 | 🔴 + 🟡 + 🔵 + ⚫    | 4                 | 6      | 3           |
+| 9 | 🟢 + 🟢             | 2                 | 2      | 1           |
+|10 | 🔵 + ⚫ + ⚫         | 3                 | 4      | 2           |
 
 ---
 
 ## 🔄 Beurtverloop
+
+### Wat is een beurt en wanneer eindigt een ronde?
+
+- **Beurt:** Elke speler voert achter elkaar zijn/haar beurt uit.  
+- Tijdens een beurt mag een speler **2 acties** uitvoeren (bewegen, item oppakken, item neerleggen).  
+- De **doorgeven-actie is gratis** en kost dus geen actiepunt.  
+- Als alle spelers hun beurt hebben gedaan, is **1 ronde** voorbij.  
+- Daarna start een nieuwe ronde met dezelfde stappen.
+
+---
+
 Elke ronde:  
 
 1. **Bestelling checken**  
@@ -65,14 +113,39 @@ Elke ronde:
      - **Item oppakken** → max 1 tegelijk dragen.  
      - **Item neerleggen** → in de verzendzone.  
 
-   ✅ Als alle gevraagde items in de verzendzone liggen = bestelling klaar. Trek meteen de volgende.  
+   ✅ **Doorgeven** (gratis actie):  
+   - Als twee spelers **naast elkaar staan (orthogonaal)** en minstens één van hen draagt een item,  
+     mogen ze **het item gratis doorgeven** (kost géén actiepunt).  
+   - Dit mag **één keer per speler per ronde**.  
+
+   ✅ Als alle gevraagde items in de **verzendzone** liggen = bestelling klaar.  
+   - Items moeten dus eerst van het bord worden opgepakt en naar de verzendzone worden gebracht.  
+   - Trek meteen de volgende bestelling.  
+   - Vul het bord aan vanuit de vullijn bij de ingang (één item per gebruikt item).
 
 3. **Ronde tellen**  
-   - Tel +1 ronde.  
+   - Tel +1 ronde.
 
 ---
 
 ## ⏳ Einde van het spel
-- **Gewonnen**: Alle 5 bestellingen zijn klaar vóór ronde 8.  
-- **Verloren**: Ronde 8 is voorbij en er liggen nog open bestellingen.  
+- Het spel eindigt zodra:  
+  - **8 rondes** voorbij zijn.  
+  - Of de voorraad aan bestellingen op is.  
 
+- Tel het totaal aantal punten van voltooide bestellingen op (bij te laat levering: helft van de punten).  
+
+- Het team wint als ze veel punten hebben verzameld door bestellingen snel en efficiënt af te ronden!
+
+---
+
+## 🧠 Tips & Strategie
+- Werk samen, maak gebruik van het doorgeven om actiepunten te besparen.  
+- Verdeel taken om niet dubbel te lopen.  
+- Houd altijd iemand in de buurt van de verzendzone.  
+- Plan je routes op basis van de deadline van de actieve bestelling.  
+- Denk vooruit over welke items het bord zullen aanvullen.
+
+---
+
+# Veel succes en plezier met Magazijn Rush! 🚚📦🎉
