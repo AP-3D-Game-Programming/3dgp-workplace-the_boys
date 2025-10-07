@@ -121,7 +121,7 @@ Elke ronde:
    - Vul het bord aan vanuit de vullijn bij de ingang (één item per gebruikt item).
 
 3. **Ronde tellen**  
-   - Tel +1 ronde.
+   - Tel +1 ronde. (na dat alle beurten op zijn of dat de spelers content zijn met hun zetten)
 
 ---
 
