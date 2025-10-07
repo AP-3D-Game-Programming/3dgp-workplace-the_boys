@@ -121,7 +121,7 @@ Elke ronde:
    ✅ Als alle gevraagde items in de **verzendzone** liggen = bestelling klaar.  
    - Items moeten dus eerst van het bord worden opgepakt en naar de verzendzone worden gebracht.  
    - Trek meteen de volgende bestelling.  
-   - Vul het bord aan vanuit de vullijn bij de ingang (één item per gebruikt item).
+   - Vul het bord aan vanuit de vullijn bij de ingang, pas na dat de bestelling klaar is (één        item per gebruikt item).
 
 3. **Ronde tellen**  
    - Tel +1 ronde.
