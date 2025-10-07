@@ -24,8 +24,6 @@ beëindigen
 te bereiken. Vergroot de impact van die keuzes door de emotionele impact van elke keuze te
 onderzoeken.
 
-inspiratie
-
 
 # 📦 Magazijn Rush
 
@@ -68,7 +66,6 @@ Alle spelers starten samen bij de **Ingang** (linksboven op het bord).
 | Kleur  | Item |
 |--------|------|
 | 🔵 Blauw | B |
-| 🟢 Groen | G |
 | 🔴 Rood | R |
 | ⚫ Grijs | Z |
 | 🟡 Geel | Y |
@@ -77,15 +74,15 @@ Alle spelers starten samen bij de **Ingang** (linksboven op het bord).
 
 | # | Items              | Deadline (rondes) | Punten | Bij te laat |
 |---|--------------------|-------------------|--------|-------------|
-| 1 | 🔵 + 🟢             | 2                 | 2      | 1           |
-| 2 | 🔴 + 🟡 + 🟢        | 3                 | 4      | 2           |
+| 1 | 🔵 + ⚫             | 2                 | 2      | 1           |
+| 2 | 🔴 + 🟡 + ⚫        | 3                 | 4      | 2           |
 | 3 | ⚫ + 🔴             | 2                 | 2      | 1           |
-| 4 | 🟢 + 🔵 + ⚫ + 🟡    | 4                 | 6      | 3           |
-| 5 | 🔴 + 🔴 + 🟢        | 3                 | 4      | 2           |
+| 4 | ⚫ + 🔵 + ⚫ + 🟡    | 4                 | 6      | 3           |
+| 5 | 🔴 + 🔴 + ⚫        | 3                 | 4      | 2           |
 | 6 | 🟡 + ⚫             | 2                 | 2      | 1           |
-| 7 | 🔵 + 🟢 + ⚫         | 3                 | 4      | 2           |
+| 7 | 🔵 + 🟡 + ⚫         | 3                 | 4      | 2           |
 | 8 | 🔴 + 🟡 + 🔵 + ⚫    | 4                 | 6      | 3           |
-| 9 | 🟢 + 🟢             | 2                 | 2      | 1           |
+| 9 | 🔴 + 🔵             | 2                 | 2      | 1           |
 |10 | 🔵 + ⚫ + ⚫         | 3                 | 4      | 2           |
 
 ---
