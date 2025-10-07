@@ -43,7 +43,7 @@ Alle spelers starten samen bij de **Ingang** (linksboven op het bord).
 - Hoek linksboven = **Ingang** (hier ligt de vullijn met items klaar om aangevuld te worden).  
 - Hoek rechtsonder = **Verzendzone** (hier moeten de items worden neergelegd om bestellingen te voltooien).  
 - Plaats in de overige vakjes **1 item per vakje** (gebruik gekleurde fiches:  
-  🔵 Blauw (B), 🟢 Groen (G), 🔴 Rood (R), ⚫ Grijs (Z), 🟡 Geel (Y)).
+  🔵 Blauw (B), 🔴 Rood (R), ⚫ Grijs (Z), 🟡 Geel (Y)).
 
 ---
 
