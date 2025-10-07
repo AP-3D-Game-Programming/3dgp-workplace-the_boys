@@ -124,7 +124,7 @@ Elke ronde:
    - Vul het bord aan vanuit de vullijn bij de ingang, pas na dat de bestelling klaar is (één        item per gebruikt item).
 
 3. **Ronde tellen**  
-   - Tel +1 ronde.
+   - Tel +1 ronde. (na dat elke speler zijn beurten heeft gebruikt of als spelers content zijn)
 
 ---
 
