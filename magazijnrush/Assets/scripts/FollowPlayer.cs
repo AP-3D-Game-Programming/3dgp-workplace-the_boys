@@ -2,17 +2,15 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    public GameObject player;
-    private Vector3 offset = new Vector3(0, 1, -3);
-    void Start()
-    {
+    public Transform player;
+    public Vector3 offset = new Vector3(0, 1, -3);
 
-    }
-
-    // Update is called once per frame
-    
     void LateUpdate()
     {
-        transform.position = player.transform.position + offset;
+        // Houd de camera op dezelfde offset, maar meedraaiend met de speler
+        transform.position = player.position + player.rotation * offset;
+
+        // Laat de camera naar de speler kijken
+        transform.LookAt(player);
     }
 }
