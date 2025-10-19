@@ -3,14 +3,28 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
     public Transform player;
-    public Vector3 offset = new Vector3(0, 1, -3);
+    public Vector3 offset;
+    public float smoothSpeed = 10f; // Hoe snel de camera beweegt
+    public LayerMask collisionLayers; // Selecteer muren/objecten
 
     void LateUpdate()
     {
-        // Houd de camera op dezelfde offset, maar meedraaiend met de speler
-        transform.position = player.position + player.rotation * offset;
+        // Gewenste positie achter de speler
+        Vector3 desiredPosition = player.position + player.rotation * offset;
 
-        // Laat de camera naar de speler kijken
+        // Raycast van speler naar gewenste camera positie
+        RaycastHit hit;
+        if (Physics.Raycast(player.position, desiredPosition - player.position, out hit, offset.magnitude, collisionLayers))
+        {
+            // Botsing gedetecteerd → zet camera voor het object, net ertegenaan
+            transform.position = hit.point;
+        }
+        else
+        {
+            // Geen obstakels → normale camera positie
+            transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
+        }
+
         transform.LookAt(player);
     }
 }

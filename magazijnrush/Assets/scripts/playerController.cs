@@ -3,21 +3,33 @@ using UnityEngine;
 public class playerController : MonoBehaviour
 {
     public float speed = 5.0f;          // loopsnelheid
-    public float mouseSensitivity = 3f; // hoe snel de muis draait
+    public float mouseSensitivity = 3f; // muis draaissnelheid
 
     private float forwardInput;
     private float mouseX;
 
-    void Update()
-    {
-        // Beweging vooruit/achteruit
-        forwardInput = Input.GetAxis("Vertical");
-        transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
+    private Rigidbody rb;
 
-        // Muisinput voor draaien
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+
+        // Zorg dat speler niet omvalt
+        rb.freezeRotation = true;
+    }
+
+    void FixedUpdate()
+    {
+        // Input ophalen
+        forwardInput = Input.GetAxis("Vertical");
         mouseX = Input.GetAxis("Mouse X");
 
-        // Draai speler rond Y-as met muis
-        transform.Rotate(Vector3.up * mouseX * mouseSensitivity);
+        // Vooruit/achteruit via MovePosition (respecteert physics)
+        Vector3 moveDirection = transform.forward * forwardInput * speed * Time.fixedDeltaTime;
+        rb.MovePosition(rb.position + moveDirection);
+
+        // Draaien via MoveRotation
+        Quaternion turn = Quaternion.Euler(0f, mouseX * mouseSensitivity, 0f);
+        rb.MoveRotation(rb.rotation * turn);
     }
 }
