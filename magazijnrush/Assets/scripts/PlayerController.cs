@@ -24,7 +24,7 @@ public class playerController : MonoBehaviour
         forwardInput = Input.GetAxis("Vertical");
         mouseX = Input.GetAxis("Mouse X");
 
-        // Vooruit/achteruit via MovePosition (respecteert physics)
+        // Vooruit/achteruit via MovePosition
         Vector3 moveDirection = transform.forward * forwardInput * speed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + moveDirection);
 
