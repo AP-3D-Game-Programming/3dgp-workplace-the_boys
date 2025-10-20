@@ -17,6 +17,10 @@ public class playerController : MonoBehaviour
 
         // Zorg dat speler niet omvalt
         rb.freezeRotation = true;
+
+        // Vergrendel de cursor in het midden van het scherm
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void FixedUpdate()
@@ -33,5 +37,11 @@ public class playerController : MonoBehaviour
         // Draaien op de Y-as met de muis
         Quaternion turn = Quaternion.Euler(0f, mouseX * mouseSensitivity, 0f);
         rb.MoveRotation(rb.rotation * turn);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 }
