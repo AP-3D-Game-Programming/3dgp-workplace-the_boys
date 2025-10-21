@@ -2,19 +2,20 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    public Transform player;
+    // Veranderd van 'player' naar 'target' voor de duidelijkheid
+    public Transform target;
     public Vector3 offset;
-    public float smoothSpeed = 10f; // Hoe snel de camera beweegt
-    public LayerMask collisionLayers; // Selecteer muren/objecten
+    public float smoothSpeed = 10f;
+    public LayerMask collisionLayers;
 
-    void LateUpdate()
+    void FixedUpdate()
     {
-        // Gewenste positie achter de speler
-        Vector3 desiredPosition = player.position + player.rotation * offset;
+        // Gebruik de positie en rotatie van de target (de CameraHolder)
+        Vector3 desiredPosition = target.position + target.rotation * offset;
 
-        // Raycast van speler naar gewenste camera positie
+        // Raycast van de target's positie naar de gewenste camera positie
         RaycastHit hit;
-        if (Physics.Raycast(player.position, desiredPosition - player.position, out hit, offset.magnitude, collisionLayers))
+        if (Physics.Raycast(target.position, desiredPosition - target.position, out hit, offset.magnitude, collisionLayers))
         {
             // Botsing gedetecteerd → zet camera voor het object, net ertegenaan
             transform.position = hit.point;
@@ -25,6 +26,7 @@ public class FollowPlayer : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
         }
 
-        transform.LookAt(player);
+        // Zorg ervoor dat de camera altijd naar de target kijkt
+        transform.LookAt(target);
     }
 }

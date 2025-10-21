@@ -2,41 +2,55 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour
 {
-    public float speed = 5.0f;          // loopsnelheid
-    public float mouseSensitivity = 3f; // muis draaissnelheid
+    // NIEUW: Een reference naar het draaipunt van de camera
+    public Transform cameraHolder;
 
-    private float forwardInput;
-    private float strafeInput;
-    private float mouseX;
+    public float speed = 5.0f;
+    public float mouseSensitivity = 3f;
+
+    // NIEUW: Variabelen om de verticale kijkhoek te beperken
+    public float verticalLookLimit = 80f;
+    private float xRotation = 0f; // Houdt de huidige verticale rotatie bij
 
     private Rigidbody rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
-        // Zorg dat speler niet omvalt
         rb.freezeRotation = true;
-
-        // Vergrendel de cursor in het midden van het scherm
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
+    void Update() // Input wordt het best verwerkt in Update
+    {
+        // Muis input ophalen
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+        // --- Verticale Rotatie (Op en Neer Kijken) ---
+        // We trekken mouseY eraf om de rotatie intuïtief te maken (muis omhoog = omhoog kijken)
+        xRotation -= mouseY;
+        // Beperk de rotatie zodat je niet over de kop kunt kijken
+        xRotation = Mathf.Clamp(xRotation, -verticalLookLimit, verticalLookLimit);
+
+        // Pas de rotatie toe op de CameraHolder
+        cameraHolder.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
+        // --- Horizontale Rotatie (Links en Rechts Draaien) ---
+        // Roteer de speler zelf om de Y-as
+        transform.Rotate(Vector3.up * mouseX);
+    }
+
     void FixedUpdate()
     {
-        // Input ophalen
-        forwardInput = Input.GetAxis("Vertical");   // W / S
-        strafeInput = Input.GetAxis("Horizontal");  // A / D
-        mouseX = Input.GetAxis("Mouse X");          // Muis draaien
+        // Input voor beweging ophalen
+        float forwardInput = Input.GetAxis("Vertical");   // W / S
+        float strafeInput = Input.GetAxis("Horizontal");  // A / D
 
         // Beweging richting (vooruit/achteruit + links/rechts)
         Vector3 moveDirection = (transform.forward * forwardInput + transform.right * strafeInput).normalized;
         rb.MovePosition(rb.position + moveDirection * speed * Time.fixedDeltaTime);
-
-        // Draaien op de Y-as met de muis
-        Quaternion turn = Quaternion.Euler(0f, mouseX * mouseSensitivity, 0f);
-        rb.MoveRotation(rb.rotation * turn);
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
