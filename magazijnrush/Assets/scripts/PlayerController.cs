@@ -6,6 +6,7 @@ public class playerController : MonoBehaviour
     public float mouseSensitivity = 3f; // muis draaissnelheid
 
     private float forwardInput;
+    private float strafeInput;
     private float mouseX;
 
     private Rigidbody rb;
@@ -16,20 +17,31 @@ public class playerController : MonoBehaviour
 
         // Zorg dat speler niet omvalt
         rb.freezeRotation = true;
+
+        // Vergrendel de cursor in het midden van het scherm
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void FixedUpdate()
     {
         // Input ophalen
-        forwardInput = Input.GetAxis("Vertical");
-        mouseX = Input.GetAxis("Mouse X");
+        forwardInput = Input.GetAxis("Vertical");   // W / S
+        strafeInput = Input.GetAxis("Horizontal");  // A / D
+        mouseX = Input.GetAxis("Mouse X");          // Muis draaien
 
-        // Vooruit/achteruit via MovePosition
-        Vector3 moveDirection = transform.forward * forwardInput * speed * Time.fixedDeltaTime;
-        rb.MovePosition(rb.position + moveDirection);
+        // Beweging richting (vooruit/achteruit + links/rechts)
+        Vector3 moveDirection = (transform.forward * forwardInput + transform.right * strafeInput).normalized;
+        rb.MovePosition(rb.position + moveDirection * speed * Time.fixedDeltaTime);
 
-        // Draaien via MoveRotation
+        // Draaien op de Y-as met de muis
         Quaternion turn = Quaternion.Euler(0f, mouseX * mouseSensitivity, 0f);
         rb.MoveRotation(rb.rotation * turn);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 }
