@@ -7,7 +7,7 @@ public class FollowPlayer : MonoBehaviour
     public float smoothSpeed = 10f; // Hoe snel de camera beweegt
     public LayerMask collisionLayers; // Selecteer muren/objecten
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         // Gewenste positie achter de speler
         Vector3 desiredPosition = player.position + player.rotation * offset;
