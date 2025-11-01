@@ -1248,6 +1248,22 @@ MonoBehaviour:
   speed: 2
   mouseSensitivity: 8
   verticalLookLimit: 80
+--- !u!114 &53001843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53001838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79090414f87293043b2fc3490d06878c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPickup
+  holdPoint: {fileID: 1559530172}
+  pickupKey: 101
+  throwKey: 323
+  throwForce: 30
 --- !u!1001 &55575513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5114,6 +5130,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8a286dcdc59bb8e4faa90d902aa99aca, type: 3}
       propertyPath: m_Name
       value: shopping-cart (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8a286dcdc59bb8e4faa90d902aa99aca, type: 3}
+      propertyPath: m_TagString
+      value: Pickupable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13042,6 +13062,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shopping-cart
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8a286dcdc59bb8e4faa90d902aa99aca, type: 3}
+      propertyPath: m_TagString
+      value: Pickupable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13841,6 +13865,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8a286dcdc59bb8e4faa90d902aa99aca, type: 3}
       propertyPath: m_Name
       value: shopping-cart (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8a286dcdc59bb8e4faa90d902aa99aca, type: 3}
+      propertyPath: m_TagString
+      value: Pickupable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15361,6 +15389,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8a286dcdc59bb8e4faa90d902aa99aca, type: 3}
       propertyPath: m_Name
       value: shopping-cart (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8a286dcdc59bb8e4faa90d902aa99aca, type: 3}
+      propertyPath: m_TagString
+      value: Pickupable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19107,7 +19139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.1832066
+      value: -6.986
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19137,9 +19169,65 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5017971254852617305, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.09989679
+      objectReference: {fileID: 0}
+    - target: {fileID: -5017971254852617305, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.11150001
+      objectReference: {fileID: 0}
+    - target: {fileID: -5017971254852617305, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.011499938
+      objectReference: {fileID: 0}
+    - target: {fileID: -5017971254852617305, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8660257
+      objectReference: {fileID: 0}
+    - target: {fileID: -5017971254852617305, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5017971254852617305, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.4999996
+      objectReference: {fileID: 0}
+    - target: {fileID: -5017971254852617305, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
       propertyPath: m_Name
       value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8891244130364874969, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.09989679
+      objectReference: {fileID: 0}
+    - target: {fileID: 8891244130364874969, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.11150001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8891244130364874969, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.011499938
+      objectReference: {fileID: 0}
+    - target: {fileID: 8891244130364874969, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8660257
+      objectReference: {fileID: 0}
+    - target: {fileID: 8891244130364874969, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8891244130364874969, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.4999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 8891244130364874969, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19147,6 +19235,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 336941310}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1415241127}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1559530172}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
       insertIndex: -1
@@ -19157,6 +19251,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 53001842}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 53001843}
   m_SourcePrefab: {fileID: 100100000, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
 --- !u!1001 &1020964556
 PrefabInstance:
@@ -21944,6 +22041,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8a286dcdc59bb8e4faa90d902aa99aca, type: 3}
       propertyPath: m_Name
       value: shopping-cart (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8a286dcdc59bb8e4faa90d902aa99aca, type: 3}
+      propertyPath: m_TagString
+      value: Pickupable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28598,6 +28699,59 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 7, y: 0.9, z: 0.7}
   m_Center: {x: 0, y: 0.45, z: -0.25000006}
+--- !u!1 &1415241126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1415241127}
+  - component: {fileID: 1415241128}
+  m_Layer: 0
+  m_Name: PickupDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1415241127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415241126}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.27, z: 0.275}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 53001841}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1415241128
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415241126}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.25
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1418192878 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 82472ce68ad5a0e40891957964d470ca, type: 3}
@@ -31520,7 +31674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c0b797eeb8eefc459c3c56347ea755d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.817
+      value: -11.475
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c0b797eeb8eefc459c3c56347ea755d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -31553,6 +31707,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7c0b797eeb8eefc459c3c56347ea755d, type: 3}
       propertyPath: m_Name
       value: shopping-basket
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7c0b797eeb8eefc459c3c56347ea755d, type: 3}
+      propertyPath: m_TagString
+      value: Pickupable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31764,6 +31922,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7513297493162946847, guid: 82472ce68ad5a0e40891957964d470ca, type: 3}
+--- !u!1 &1559530171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1559530172}
+  m_Layer: 0
+  m_Name: HoldPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1559530172
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559530171}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.303, z: 0.361}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 53001841}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1564264878
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46411,6 +46600,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8a286dcdc59bb8e4faa90d902aa99aca, type: 3}
       propertyPath: m_Name
       value: shopping-cart (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8a286dcdc59bb8e4faa90d902aa99aca, type: 3}
+      propertyPath: m_TagString
+      value: Pickupable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
