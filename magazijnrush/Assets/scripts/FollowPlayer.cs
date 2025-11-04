@@ -8,21 +8,28 @@ public class FollowPlayer : MonoBehaviour
     public float smoothSpeed = 10f;
     public LayerMask collisionLayers;
 
-    void FixedUpdate()
+    void FixedUpdate() // Of LateUpdate, wat je nu ook gebruikt
     {
-        // Gebruik de positie en rotatie van de target (de CameraHolder)
+        // Gebruik de positie en rotatie van de target
         Vector3 desiredPosition = target.position + target.rotation * offset;
+
+        // --- DIT IS DE BELANGRIJKE DEBUG-STAP ---
+        Vector3 direction = desiredPosition - target.position;
+        float distance = offset.magnitude;
+        Debug.DrawRay(target.position, direction, Color.red); // Teken een rode lijn waar de raycast gaat
+                                                              // ------------------------------------------
 
         // Raycast van de target's positie naar de gewenste camera positie
         RaycastHit hit;
-        if (Physics.Raycast(target.position, desiredPosition - target.position, out hit, offset.magnitude, collisionLayers))
+        if (Physics.Raycast(target.position, direction, out hit, distance, collisionLayers))
         {
-            // Botsing gedetecteerd → zet camera voor het object, net ertegenaan
+            // Als we iets raken, teken dan een groene lijn naar het raakpunt
+            Debug.DrawLine(target.position, hit.point, Color.green);
+
             transform.position = hit.point;
         }
         else
         {
-            // Geen obstakels → normale camera positie
             transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
         }
 
