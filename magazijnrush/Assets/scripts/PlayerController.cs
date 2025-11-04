@@ -13,7 +13,6 @@ public class playerController : MonoBehaviour
     private float xRotation = 0f; // Houdt de huidige verticale rotatie bij
 
     private Rigidbody rb;
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -29,7 +28,7 @@ public class playerController : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
         // --- Verticale Rotatie (Op en Neer Kijken) ---
-        // We trekken mouseY eraf om de rotatie intuïtief te maken (muis omhoog = omhoog kijken)
+        // We trekken mouseY eraf om de rotatie intuï¿½tief te maken (muis omhoog = omhoog kijken)
         xRotation -= mouseY;
         // Beperk de rotatie zodat je niet over de kop kunt kijken
         xRotation = Mathf.Clamp(xRotation, -verticalLookLimit, verticalLookLimit);
@@ -49,7 +48,8 @@ public class playerController : MonoBehaviour
         float strafeInput = Input.GetAxis("Horizontal");  // A / D
 
         // Beweging richting (vooruit/achteruit + links/rechts)
-        Vector3 moveDirection = (transform.forward * forwardInput + transform.right * strafeInput).normalized;
+        Vector3 moveDirection = transform.forward * forwardInput + transform.right * strafeInput;
+        moveDirection.Normalize(); // Zorg dat diagonale beweging niet sneller is
         rb.MovePosition(rb.position + moveDirection * speed * Time.fixedDeltaTime);
 
         if (Input.GetKeyDown(KeyCode.Escape))
