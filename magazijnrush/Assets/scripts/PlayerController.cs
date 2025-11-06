@@ -4,9 +4,12 @@ public class playerController : MonoBehaviour
 {
     // NIEUW: Een reference naar het draaipunt van de camera
     public Transform cameraHolder;
-
+    private PlayerPickup carryScript;
     public float speed = 5.0f;
+    public float sprintSpeed = 5.5f;
     public float mouseSensitivity = 3f;
+
+    public float currentSpeed;
 
     // NIEUW: Variabelen om de verticale kijkhoek te beperken
     public float verticalLookLimit = 80f;
@@ -19,6 +22,7 @@ public class playerController : MonoBehaviour
         rb.freezeRotation = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        carryScript = GetComponent<PlayerPickup>();
     }
 
     void Update() // Input wordt het best verwerkt in Update
@@ -47,10 +51,21 @@ public class playerController : MonoBehaviour
         float forwardInput = Input.GetAxis("Vertical");   // W / S
         float strafeInput = Input.GetAxis("Horizontal");  // A / D
 
-        // Beweging richting (vooruit/achteruit + links/rechts)
-        Vector3 moveDirection = transform.forward * forwardInput + transform.right * strafeInput;
+        bool shiftPressed = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+
+        if (shiftPressed && !carryScript.isCarrying)
+        {
+            currentSpeed = sprintSpeed;
+        }
+        else
+        {
+            currentSpeed = speed;
+        }
+
+            // Beweging richting (vooruit/achteruit + links/rechts)
+            Vector3 moveDirection = transform.forward * forwardInput + transform.right * strafeInput;
         moveDirection.Normalize(); // Zorg dat diagonale beweging niet sneller is
-        rb.MovePosition(rb.position + moveDirection * speed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + moveDirection * currentSpeed * Time.fixedDeltaTime);
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

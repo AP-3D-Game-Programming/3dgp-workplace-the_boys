@@ -7,6 +7,7 @@ public class PlayerPickup : MonoBehaviour
     public Transform holdPoint;           // Waar het opgepakte object vastgehouden wordt
     public KeyCode pickupKey = KeyCode.E; // Toets om op te pakken/los te laten
     public KeyCode throwKey = KeyCode.Mouse0; // Toets om te gooien (linkermuisknop)
+    public bool isCarrying = false; //voor sprint
 
     [Header("Throw Settings")]
     public float throwForce = 10f; // Hoe hard het object wordt gegooid
@@ -22,15 +23,23 @@ public class PlayerPickup : MonoBehaviour
         if (Input.GetKeyDown(pickupKey))
         {
             if (heldObject == null)
+            {
                 TryPickupNearest();
+                isCarrying = true;
+            }
             else
+            {
                 DropHeld();
+                isCarrying = false;
+            }
+
         }
 
         // Gooien
         if (Input.GetKeyDown(throwKey) && heldObject != null)
         {
             ThrowHeld();
+            isCarrying = false;
         }
     }
 
