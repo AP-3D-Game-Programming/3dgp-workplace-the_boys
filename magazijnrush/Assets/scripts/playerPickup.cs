@@ -125,7 +125,7 @@ public class PlayerPickup : MonoBehaviour
     // Trigger-detectie
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Pickupable"))
+        if (other.CompareTag("Pickupable") || other.CompareTag("SpawnedPickup"))
         {
             nearby.Add(other.gameObject);
             Debug.Log("In bereik: " + other.name);
@@ -134,7 +134,7 @@ public class PlayerPickup : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Pickupable"))
+        if (other.CompareTag("Pickupable") || other.CompareTag("SpawnedPickup"))
         {
             nearby.Remove(other.gameObject);
             Debug.Log("Uit bereik: " + other.name);
