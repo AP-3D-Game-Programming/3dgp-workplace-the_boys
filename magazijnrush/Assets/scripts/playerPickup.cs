@@ -1,20 +1,19 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerPickup : MonoBehaviour
 {
     [Header("Setup")]
-    public Transform holdPoint;           // Waar het opgepakte object vastgehouden wordt
+    public Transform holdPoint;           // Waar het object vastgehouden wordt
     public KeyCode pickupKey = KeyCode.E; // Toets om op te pakken/los te laten
-    public KeyCode throwKey = KeyCode.Mouse0; // Toets om te gooien (linkermuisknop)
+    public KeyCode throwKey = KeyCode.Mouse0; // Toets om te gooien
 
     [Header("Throw Settings")]
-    public float throwForce = 10f; // Hoe hard het object wordt gegooid
+    public float throwForce = 10f;        // Kracht bij gooien
 
-    // intern
     private GameObject heldObject = null;
     private Rigidbody heldRb = null;
-    private HashSet<GameObject> nearby = new HashSet<GameObject>();
+    private HashSet<GameObject> nearbyObjects = new HashSet<GameObject>();
 
     void Update()
     {
@@ -22,42 +21,44 @@ public class PlayerPickup : MonoBehaviour
         if (Input.GetKeyDown(pickupKey))
         {
             if (heldObject == null)
-                TryPickupNearest();
+                PickupNearest();
             else
                 DropHeld();
         }
 
         // Gooien
         if (Input.GetKeyDown(throwKey) && heldObject != null)
-        {
             ThrowHeld();
+
+        // Houd object netjes op holdPoint
+        if (heldObject != null)
+        {
+            heldObject.transform.position = holdPoint.position;
+            heldObject.transform.rotation = holdPoint.rotation;
         }
     }
 
-    // Zoek dichtstbijzijnde oppakbaar object
-    void TryPickupNearest()
+    // Zoek dichtstbijzijnde object in trigger
+    void PickupNearest()
     {
         GameObject nearest = null;
-        float bestDist = float.MaxValue;
+        float minDist = float.MaxValue;
 
-        foreach (var go in nearby)
+        foreach (var obj in nearbyObjects)
         {
-            if (go == null) continue;
-            float d = Vector3.Distance(go.transform.position, holdPoint.position);
-            if (d < bestDist)
+            if (obj == null) continue;
+            float dist = Vector3.Distance(obj.transform.position, holdPoint.position);
+            if (dist < minDist)
             {
-                bestDist = d;
-                nearest = go;
+                minDist = dist;
+                nearest = obj;
             }
         }
 
         if (nearest != null)
             Pickup(nearest);
-        else
-            Debug.Log("Geen oppakbaar object in bereik.");
     }
 
-    // Object oppakken
     void Pickup(GameObject obj)
     {
         heldObject = obj;
@@ -65,79 +66,57 @@ public class PlayerPickup : MonoBehaviour
 
         if (heldRb != null)
         {
-            heldRb.isKinematic = true;
-            heldRb.detectCollisions = false;
+            heldRb.isKinematic = true;      // Physics uit
+            heldRb.detectCollisions = false; // botsingen uit
         }
 
-        obj.transform.SetParent(holdPoint, true);
+        obj.transform.SetParent(holdPoint);
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localRotation = Quaternion.identity;
-
-        Debug.Log("Oppakken: " + obj.name);
     }
 
-    // Object neerleggen (zonder kracht)
     void DropHeld()
     {
         if (heldObject == null) return;
 
-        heldObject.transform.SetParent(null, true);
+        heldObject.transform.SetParent(null);
 
         if (heldRb != null)
         {
             heldRb.isKinematic = false;
             heldRb.detectCollisions = true;
-
-            // geef dezelfde snelheid als speler mee
-            heldRb.linearVelocity = GetComponent<Rigidbody>() != null
-                ? GetComponent<Rigidbody>().linearVelocity
-                : Vector3.zero;
         }
 
-        Debug.Log("Losgelaten: " + heldObject.name);
         heldObject = null;
         heldRb = null;
     }
 
-    // Object weggooien
     void ThrowHeld()
     {
         if (heldObject == null || heldRb == null) return;
 
-        // Eerst physics herstellen en losmaken
-        heldObject.transform.SetParent(null, true);
+        heldObject.transform.SetParent(null);
         heldRb.isKinematic = false;
         heldRb.detectCollisions = true;
 
-        // Gooirichting gebaseerd op speler in plaats van camera
-        Vector3 throwDirection = (transform.forward + Vector3.up * 0.2f).normalized;
+        // Gooirichting: vooruit + een beetje omhoog
+        Vector3 throwDir = (transform.forward + Vector3.up * 0.2f).normalized;
+        heldRb.AddForce(throwDir * throwForce, ForceMode.Impulse);
 
-        // Voeg kracht toe in die richting
-        heldRb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
-
-        Debug.Log("Weggegooid: " + heldObject.name);
-
-        // Clear variabelen
         heldObject = null;
         heldRb = null;
     }
 
-    // Trigger-detectie
+    // Detecteer objecten in de buurt
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Pickupable") || other.CompareTag("SpawnedPickup"))
-        {
-            nearby.Add(other.gameObject);
-            Debug.Log("In bereik: " + other.name);
-        }
+            nearbyObjects.Add(other.gameObject);
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Pickupable") || other.CompareTag("SpawnedPickup"))
-        {
-            nearby.Remove(other.gameObject);
-            Debug.Log("Uit bereik: " + other.name);
-        }
+            nearbyObjects.Remove(other.gameObject);
     }
 }

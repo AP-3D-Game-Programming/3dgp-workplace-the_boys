@@ -34,8 +34,6 @@ public class GameManager : MonoBehaviour
 
         UpdateScoreUI();
         UpdateTimerUI();
-
-        StartGame();
     }
 
     void Update()
@@ -59,10 +57,15 @@ public class GameManager : MonoBehaviour
     // Start het spel: timer + initial crates spawn
     public void StartGame()
     {
+        // Alleen starten als het spel nog niet actief is
+        if (gameActive) return;
+
         gameActive = true;
         remainingTime = gameDuration;
 
         SpawnAllCrates();
+        score = 0;
+        UpdateScoreUI();
     }
 
     void SpawnAllCrates()
@@ -114,7 +117,16 @@ public class GameManager : MonoBehaviour
     void EndGame()
     {
         gameActive = false;
+
+        // Update timer UI
         if (timerText != null)
             timerText.text = "Time's Up!";
+
+        // Vernietig alle actieve crates
+        GameObject[] spawnedCrates = GameObject.FindGameObjectsWithTag("SpawnedPickup");
+        foreach (GameObject crate in spawnedCrates)
+        {
+            Destroy(crate);
+        }
     }
 }
