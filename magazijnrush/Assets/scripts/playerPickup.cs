@@ -25,7 +25,7 @@ public class PlayerPickup : MonoBehaviour
             if (heldObject == null)
             {
                 TryPickupNearest();
-                isCarrying = true;
+
             }
             else
             {
@@ -61,7 +61,11 @@ public class PlayerPickup : MonoBehaviour
         }
 
         if (nearest != null)
+        {
             Pickup(nearest);
+            isCarrying = true;
+        }
+
         else
             Debug.Log("Geen oppakbaar object in bereik.");
     }

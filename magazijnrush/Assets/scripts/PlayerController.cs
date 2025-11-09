@@ -8,9 +8,13 @@ public class playerController : MonoBehaviour
     public float speed = 5.0f;
     public float sprintSpeed = 5.5f;
     public float mouseSensitivity = 3f;
-
     public float currentSpeed;
 
+    [Header("Jumping")]
+    public float jumpForce = 30.0f;
+    public LayerMask groundLayer;
+    public float groundCheckDistance = 0.1f;
+    private bool isGrounded;
     // NIEUW: Variabelen om de verticale kijkhoek te beperken
     public float verticalLookLimit = 80f;
     private float xRotation = 0f; // Houdt de huidige verticale rotatie bij
@@ -43,6 +47,19 @@ public class playerController : MonoBehaviour
         // --- Horizontale Rotatie (Links en Rechts Draaien) ---
         // Roteer de speler zelf om de Y-as
         transform.Rotate(Vector3.up * mouseX);
+
+        //Jumping
+        if (Input.GetKeyDown(KeyCode.Space) && !carryScript.isCarrying && isGrounded)
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 
     void FixedUpdate()
@@ -62,15 +79,14 @@ public class playerController : MonoBehaviour
             currentSpeed = speed;
         }
 
-            // Beweging richting (vooruit/achteruit + links/rechts)
-            Vector3 moveDirection = transform.forward * forwardInput + transform.right * strafeInput;
+        // Beweging richting (vooruit/achteruit + links/rechts)
+        Vector3 moveDirection = transform.forward * forwardInput + transform.right * strafeInput;
         moveDirection.Normalize(); // Zorg dat diagonale beweging niet sneller is
         rb.MovePosition(rb.position + moveDirection * currentSpeed * Time.fixedDeltaTime);
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
+        //Anti doublejump
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundLayer);
+
+
     }
 }

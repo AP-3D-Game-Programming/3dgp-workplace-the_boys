@@ -1249,6 +1249,11 @@ MonoBehaviour:
   sprintSpeed: 3
   mouseSensitivity: 8
   currentSpeed: 0
+  jumpForce: 30
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  groundCheckDistance: 0.1
   verticalLookLimit: 80
 --- !u!114 &53001843
 MonoBehaviour:
