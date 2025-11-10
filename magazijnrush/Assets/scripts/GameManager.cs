@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> cratePrefabs;   // Mogelijke crate prefabs
     public Transform spawnParent;           // Parent voor spawnpoints
     public int maxCrates = 5;               // Max crates tegelijk
+    public float gameDuration = 60f;        // Spelduur in seconden
 
     [Header("Order Settings")]
     public int maxItemsPerOrder = 5;        // Max items per order
