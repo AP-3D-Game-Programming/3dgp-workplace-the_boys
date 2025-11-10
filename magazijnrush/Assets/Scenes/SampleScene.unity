@@ -1250,7 +1250,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::playerController
   cameraHolder: {fileID: 336941310}
   speed: 2
+  sprintSpeed: 3
   mouseSensitivity: 8
+  currentSpeed: 0
+  jumpForce: 30
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  groundCheckDistance: 0.1
   verticalLookLimit: 80
 --- !u!114 &53001843
 MonoBehaviour:
@@ -1267,6 +1274,7 @@ MonoBehaviour:
   holdPoint: {fileID: 1559530172}
   pickupKey: 101
   throwKey: 323
+  isCarrying: 0
   throwForce: 30
 --- !u!1001 &55575513
 PrefabInstance:
@@ -19340,7 +19348,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.43
+      value: 0.267
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d4698d1b93b0384caa8d64b2fd04ed8, type: 3}
       propertyPath: m_LocalPosition.z
