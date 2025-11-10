@@ -6,25 +6,24 @@ using System.Text;
 public class GameManager : MonoBehaviour
 {
     [Header("Crate Spawning")]
-    public List<GameObject> cratePrefabs;   // Alle mogelijke crate prefabs
-    public Transform spawnParent;           // Parent met spawnpoints
-    public int maxCrates = 5;               // Hoeveel crates tegelijk
-    public float gameDuration = 60f;        // Spelduur in seconden
+    public List<GameObject> cratePrefabs;   // Mogelijke crate prefabs
+    public Transform spawnParent;           // Parent voor spawnpoints
+    public int maxCrates = 5;               // Max crates tegelijk
 
     [Header("Order Settings")]
-    public int maxItemsPerOrder = 5;        // Max aantal items per bestelling
+    public int maxItemsPerOrder = 5;        // Max items per order
 
     [Header("UI")]
-    public TextMeshProUGUI scoreText;       // Score UI
-    public TextMeshProUGUI timerText;       // Timer UI
-    public TextMeshProUGUI orderText;       // Order UI
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI timerText;
+    public TextMeshProUGUI orderText;
 
     private List<Transform> spawnPoints = new List<Transform>();
+    private Dictionary<string, int> currentOrder = new Dictionary<string, int>();
+
     private int score = 0;
     private float remainingTime;
     public bool gameActive = false;
-
-    private Dictionary<string, int> currentOrder = new Dictionary<string, int>();
 
     public static GameManager Instance;
 
@@ -65,7 +64,6 @@ public class GameManager : MonoBehaviour
 
         gameActive = true;
         remainingTime = gameDuration;
-
         score = 0;
         UpdateScoreUI();
 
@@ -73,18 +71,15 @@ public class GameManager : MonoBehaviour
         GenerateRandomOrder();
     }
 
+    // ---------------- SPAWN LOGICA ----------------
     void SpawnAllCrates()
     {
-        List<Transform> shuffled = new List<Transform>(spawnPoints);
-        for (int i = 0; i < shuffled.Count; i++)
-        {
-            int randIndex = Random.Range(i, shuffled.Count);
-            (shuffled[i], shuffled[randIndex]) = (shuffled[randIndex], shuffled[i]);
-        }
+        var shuffledPoints = new List<Transform>(spawnPoints);
+        ShuffleList(shuffledPoints);
 
-        for (int i = 0; i < maxCrates && i < shuffled.Count; i++)
+        for (int i = 0; i < maxCrates && i < shuffledPoints.Count; i++)
         {
-            Transform point = shuffled[i];
+            Transform point = shuffledPoints[i];
             GameObject prefab = cratePrefabs[Random.Range(0, cratePrefabs.Count)];
             GameObject crate = Instantiate(prefab, point.position, point.rotation);
             crate.tag = "SpawnedPickup";
@@ -93,13 +88,11 @@ public class GameManager : MonoBehaviour
 
     void CheckRespawn()
     {
-        GameObject[] crates = GameObject.FindGameObjectsWithTag("SpawnedPickup");
-        if (crates.Length == 0)
-        {
+        if (GameObject.FindGameObjectsWithTag("SpawnedPickup").Length == 0)
             SpawnAllCrates();
-        }
     }
 
+    // ---------------- SCORE & TIMER ----------------
     public void AddScore(int amount)
     {
         score += amount;
@@ -121,30 +114,21 @@ public class GameManager : MonoBehaviour
     void EndGame()
     {
         gameActive = false;
+        // Timer blijft zichtbaar, geen extra actie nodig
 
-        if (timerText != null)
-            timerText.text = "Time's Up!";
-
-        // Verwijder alle crates
-        foreach (GameObject crate in GameObject.FindGameObjectsWithTag("SpawnedPickup"))
-            Destroy(crate);
-
-        // Leeg order
+        ClearAllCrates();
         currentOrder.Clear();
         UpdateOrderUI();
     }
 
     // ---------------- ORDER LOGICA ----------------
-
     void GenerateRandomOrder()
     {
         currentOrder.Clear();
-
-        // Haal alle crates op het veld
         GameObject[] activeCrates = GameObject.FindGameObjectsWithTag("SpawnedPickup");
         if (activeCrates.Length == 0) return;
 
-        // Unieke item types
+        // Unieke types op het veld
         List<string> availableTypes = new List<string>();
         foreach (var crate in activeCrates)
         {
@@ -156,16 +140,9 @@ public class GameManager : MonoBehaviour
         if (availableTypes.Count == 0) return;
 
         int totalItemsLeft = Mathf.Min(maxItemsPerOrder, activeCrates.Length);
+        ShuffleList(availableTypes);
 
-        // Shuffle types
-        List<string> shuffledTypes = new List<string>(availableTypes);
-        for (int i = 0; i < shuffledTypes.Count; i++)
-        {
-            int randIndex = Random.Range(i, shuffledTypes.Count);
-            (shuffledTypes[i], shuffledTypes[randIndex]) = (shuffledTypes[randIndex], shuffledTypes[i]);
-        }
-
-        foreach (string type in shuffledTypes)
+        foreach (string type in availableTypes)
         {
             if (totalItemsLeft <= 0) break;
 
@@ -176,7 +153,6 @@ public class GameManager : MonoBehaviour
 
             int count = Random.Range(1, Mathf.Min(availableCount, totalItemsLeft) + 1);
             currentOrder[type] = count;
-
             totalItemsLeft -= count;
         }
 
@@ -187,49 +163,51 @@ public class GameManager : MonoBehaviour
     {
         if (orderText == null) return;
 
-        if (!gameActive)
-        {
-            orderText.text = "";
-            return;
-        }
+        orderText.text = !gameActive ? "" : BuildOrderString();
+    }
 
-        StringBuilder sb = new StringBuilder();
-        sb.AppendLine("Order:");
-
+    string BuildOrderString()
+    {
+        StringBuilder sb = new StringBuilder("Order:");
         foreach (var kv in currentOrder)
-            sb.AppendLine($"• {kv.Key} x{kv.Value}");
-
-        orderText.text = sb.ToString();
+            sb.AppendLine($"\n• {kv.Key} x{kv.Value}");
+        return sb.ToString();
     }
 
     public bool TryDeliverItem(string itemName)
     {
         if (!currentOrder.ContainsKey(itemName))
-            return false; // Niet in de order → fout item
+            return false;
 
         currentOrder[itemName]--;
-
         if (currentOrder[itemName] <= 0)
             currentOrder.Remove(itemName);
 
         UpdateOrderUI();
 
-        // Als order leeg is → order voltooid
         if (currentOrder.Count == 0)
         {
-            AddScore(5); // Beloning voor volledige order
-
-            // Verwijder alle overgebleven crates
-            foreach (GameObject crate in GameObject.FindGameObjectsWithTag("SpawnedPickup"))
-                Destroy(crate);
-
-            // Spawn verse crates voor nieuwe order
+            AddScore(5);
+            ClearAllCrates();
             SpawnAllCrates();
-
-            // Genereer nieuwe order
             GenerateRandomOrder();
         }
 
         return true;
+    }
+
+    void ClearAllCrates()
+    {
+        foreach (var crate in GameObject.FindGameObjectsWithTag("SpawnedPickup"))
+            Destroy(crate);
+    }
+
+    void ShuffleList<T>(List<T> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            int randIndex = Random.Range(i, list.Count);
+            (list[i], list[randIndex]) = (list[randIndex], list[i]);
+        }
     }
 }
