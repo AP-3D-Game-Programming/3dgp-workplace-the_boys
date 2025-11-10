@@ -4,16 +4,24 @@ public class ShippingZone : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        // Alleen crates die door de GameManager zijn gespawned
+        if (!GameManager.Instance.gameActive) return;
+
+        // Alleen SpawnedPickup-objecten tellen
         if (other.CompareTag("SpawnedPickup"))
         {
-            // Score toevoegen via de GameManager
-            GameManager.Instance.AddScore(1);
+            string itemName = other.name.Replace("(Clone)", "").Trim();
 
-            // Vernietig de crate
-            Destroy(other.gameObject);
+            // Check of dit item deel is van de order
+            if (GameManager.Instance.TryDeliverItem(itemName))
+            {
+                GameManager.Instance.AddScore(2); // Belonen
+                Destroy(other.gameObject);
+            }
+            else
+            {
+                GameManager.Instance.AddScore(-1); // Straffen
+                Destroy(other.gameObject);
+            }
         }
-
-        // Alles met andere tags blijft onaangetast
     }
 }
