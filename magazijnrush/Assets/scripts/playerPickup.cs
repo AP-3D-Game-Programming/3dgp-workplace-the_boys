@@ -6,7 +6,8 @@ public class PlayerPickup : MonoBehaviour
     [Header("Setup")]
     public Transform holdPoint;           // Waar het object vastgehouden wordt
     public KeyCode pickupKey = KeyCode.E; // Toets om op te pakken/los te laten
-    public KeyCode throwKey = KeyCode.Mouse0; // Toets om te gooien
+    public KeyCode throwKey = KeyCode.Mouse0; // Toets om te gooien (linkermuisknop)
+    public bool isCarrying = false; //voor sprint
 
     [Header("Throw Settings")]
     public float throwForce = 10f;        // Kracht bij gooien
@@ -21,20 +22,34 @@ public class PlayerPickup : MonoBehaviour
         if (Input.GetKeyDown(pickupKey))
         {
             if (heldObject == null)
+            {
                 PickupNearest();
+
+            }
+                
             else
+            {
                 DropHeld();
+
+            }
+
         }
 
         // Gooien
         if (Input.GetKeyDown(throwKey) && heldObject != null)
+        {
             ThrowHeld();
+
+        }
+
+                
 
         // Houd object netjes op holdPoint
         if (heldObject != null)
         {
             heldObject.transform.position = holdPoint.position;
             heldObject.transform.rotation = holdPoint.rotation;
+
         }
     }
 
@@ -56,26 +71,29 @@ public class PlayerPickup : MonoBehaviour
         }
 
         if (nearest != null)
-            Pickup(nearest);
-    }
-
-    void Pickup(GameObject obj)
-    {
-        heldObject = obj;
-        heldRb = obj.GetComponent<Rigidbody>();
-
-        if (heldRb != null)
         {
-            heldRb.isKinematic = true;      // Physics uit
-            heldRb.detectCollisions = false; // botsingen uit
+            Pickup(nearest);
+            isCarrying = true;
         }
 
-        obj.transform.SetParent(holdPoint);
-        obj.transform.localPosition = Vector3.zero;
-        obj.transform.localRotation = Quaternion.identity;
+        void Pickup(GameObject obj)
+        {
+            heldObject = obj;
+            heldRb = obj.GetComponent<Rigidbody>();
+
+            if (heldRb != null)
+            {
+                heldRb.isKinematic = true;      // Physics uit
+                heldRb.detectCollisions = false; // botsingen uit
+            }
+
+            obj.transform.SetParent(holdPoint);
+            obj.transform.localPosition = Vector3.zero;
+            obj.transform.localRotation = Quaternion.identity;
+        }
     }
 
-    void DropHeld()
+    public void DropHeld()
     {
         if (heldObject == null) return;
 
@@ -89,6 +107,7 @@ public class PlayerPickup : MonoBehaviour
 
         heldObject = null;
         heldRb = null;
+        isCarrying = false;
     }
 
     void ThrowHeld()
@@ -105,6 +124,7 @@ public class PlayerPickup : MonoBehaviour
 
         heldObject = null;
         heldRb = null;
+        isCarrying = false;
     }
 
     // Detecteer objecten in de buurt
@@ -120,3 +140,5 @@ public class PlayerPickup : MonoBehaviour
             nearbyObjects.Remove(other.gameObject);
     }
 }
+
+
