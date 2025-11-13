@@ -57,9 +57,11 @@ public class playerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            bool cursorIsVisible = Cursor.visible;
+            Cursor.visible = !cursorIsVisible;
+            Cursor.lockState = cursorIsVisible ? CursorLockMode.Locked : CursorLockMode.None;
         }
+
     }
 
     void FixedUpdate()
