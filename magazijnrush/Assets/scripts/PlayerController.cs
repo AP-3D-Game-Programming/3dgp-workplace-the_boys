@@ -36,7 +36,7 @@ public class playerController : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
         // --- Verticale Rotatie (Op en Neer Kijken) ---
-        // We trekken mouseY eraf om de rotatie intu�tief te maken (muis omhoog = omhoog kijken)
+        // We trekken mouseY eraf om de rotatie intutief te maken (muis omhoog = omhoog kijken)
         xRotation -= mouseY;
         // Beperk de rotatie zodat je niet over de kop kunt kijken
         xRotation = Mathf.Clamp(xRotation, -verticalLookLimit, verticalLookLimit);
@@ -59,6 +59,13 @@ public class playerController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+        }
+
+        // Linkermuisklik vergrendelt de cursor weer
+        if (Input.GetMouseButtonDown(0) && Cursor.visible)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 
