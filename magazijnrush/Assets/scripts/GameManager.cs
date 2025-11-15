@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI orderText;
+    public TextMeshProUGUI instructiontext;
 
     private List<Transform> spawnPoints = new List<Transform>();
     private Dictionary<string, int> currentOrder = new Dictionary<string, int>();
@@ -70,6 +71,8 @@ public class GameManager : MonoBehaviour
 
         SpawnAllCrates();
         GenerateRandomOrder();
+        if (instructiontext != null)
+                    instructiontext.gameObject.SetActive(false);
     }
 
     // ---------------- SPAWN LOGICA ----------------
@@ -168,12 +171,17 @@ public class GameManager : MonoBehaviour
     }
 
     string BuildOrderString()
-    {
-        StringBuilder sb = new StringBuilder("Order:");
-        foreach (var kv in currentOrder)
-            sb.AppendLine($"\n• {kv.Key} x{kv.Value}");
-        return sb.ToString();
-    }
+{
+    StringBuilder sb = new StringBuilder();
+    sb.AppendLine("Gather these items at the entrance!");
+    sb.AppendLine();
+    sb.AppendLine("Order:");
+
+    foreach (var kv in currentOrder)
+        sb.AppendLine($"• {kv.Key} x{kv.Value}");
+
+    return sb.ToString();
+}
 
     public bool TryDeliverItem(string itemName)
     {
