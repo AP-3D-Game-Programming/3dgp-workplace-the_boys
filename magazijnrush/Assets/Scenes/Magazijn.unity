@@ -255,7 +255,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'order : '
+  m_text: test test test
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -639,6 +639,7 @@ GameObject:
   m_Component:
   - component: {fileID: 648771669}
   - component: {fileID: 648771670}
+  - component: {fileID: 648771671}
   m_Layer: 0
   m_Name: shippingzone
   m_TagString: Untagged
@@ -684,6 +685,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.7908564, y: 1, z: 0.9052334}
   m_Center: {x: 0.26634693, y: 0, z: -0.04738331}
+--- !u!114 &648771671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648771668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f3777be531b0ec4c849c5754fed4c47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShippingZone
 --- !u!4 &785019466 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3550645563298862776, guid: f7bb4bfc5c8938a41ba0839b99e0f12e, type: 3}
@@ -700,7 +713,6 @@ GameObject:
   - component: {fileID: 966693428}
   - component: {fileID: 966693427}
   - component: {fileID: 966693426}
-  - component: {fileID: 966693429}
   m_Layer: 0
   m_Name: shippingzonefloor
   m_TagString: Untagged
@@ -779,18 +791,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 648771669}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &966693429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 966693424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f3777be531b0ec4c849c5754fed4c47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShippingZone
 --- !u!1 &1304423358
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,6 +1132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5dbcdbc05f2a6f4aa5624bdcf1305b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  gatherItemsText: gather these items in the shipping zone!!!
   cratePrefabs:
   - {fileID: 1219372612259696101, guid: 3051f3e2662277c4a960ce9885d9e2d2, type: 3}
   spawnParent: {fileID: 130046348}

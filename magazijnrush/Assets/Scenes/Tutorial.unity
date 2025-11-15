@@ -40776,6 +40776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5dbcdbc05f2a6f4aa5624bdcf1305b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  gatherItemsText: gather these items at the entrance!!!
   cratePrefabs:
   - {fileID: 7866798811848521231, guid: 28ea755bad83f994db59bdff467c825a, type: 3}
   - {fileID: 1219372612259696101, guid: 3051f3e2662277c4a960ce9885d9e2d2, type: 3}
