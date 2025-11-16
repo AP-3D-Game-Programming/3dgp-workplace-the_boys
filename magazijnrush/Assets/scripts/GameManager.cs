@@ -5,6 +5,9 @@ using System.Text;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Scene Settings")]
+    public string gatherItemsText = "Gather these items!";
+
     [Header("Crate Spawning")]
     public List<GameObject> cratePrefabs;   // Mogelijke crate prefabs
     public Transform spawnParent;           // Parent voor spawnpoints
@@ -173,7 +176,7 @@ public class GameManager : MonoBehaviour
     string BuildOrderString()
 {
     StringBuilder sb = new StringBuilder();
-    sb.AppendLine("Gather these items at the entrance!");
+    sb.AppendLine(gatherItemsText);
     sb.AppendLine();
     sb.AppendLine("Order:");
 
