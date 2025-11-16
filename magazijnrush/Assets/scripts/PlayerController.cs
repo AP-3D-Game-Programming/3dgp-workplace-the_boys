@@ -44,7 +44,7 @@ public class playerController : MonoBehaviour
         transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensitivity);
 
         // Jump
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !carryScript.isCarrying)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             Vector3 vel = rb.linearVelocity; vel.y = 0f; rb.linearVelocity = vel;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
