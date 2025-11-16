@@ -94,6 +94,5 @@ public class playerController : MonoBehaviour
         //Anti doublejump
         isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundLayer);
 
-
     }
 }
