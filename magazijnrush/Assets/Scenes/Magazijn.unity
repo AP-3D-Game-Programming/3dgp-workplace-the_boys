@@ -1097,6 +1097,10 @@ PrefabInstance:
       propertyPath: throwForce
       value: 70
       objectReference: {fileID: 0}
+    - target: {fileID: 7110795573854919687, guid: c3078dff72896514bbe8159239acbe09, type: 3}
+      propertyPath: groundedSkin
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 7251716003776159658, guid: c3078dff72896514bbe8159239acbe09, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.9
