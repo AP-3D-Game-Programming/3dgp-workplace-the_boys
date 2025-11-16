@@ -1,98 +1,77 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
 public class playerController : MonoBehaviour
 {
-    // NIEUW: Een reference naar het draaipunt van de camera
     public Transform cameraHolder;
     private PlayerPickup carryScript;
-    public float speed = 5.0f;
-    public float sprintSpeed = 5.5f;
-    public float mouseSensitivity = 3f;
-    public float currentSpeed;
 
-    [Header("Jumping")]
-    public float jumpForce = 30.0f;
+    [Header("Movement")]
+    public float speed = 5f;
+    public float sprintSpeed = 5.5f;
+    private float currentSpeed;
+
+    [Header("Jump")]
+    public float jumpForce = 7f;
     public LayerMask groundLayer;
-    public float groundCheckDistance = 0.1f;
-    private bool isGrounded;
-    // NIEUW: Variabelen om de verticale kijkhoek te beperken
+    public float groundedSkin = 0.05f;
+
+    [Header("Look")]
+    public float mouseSensitivity = 3f;
     public float verticalLookLimit = 80f;
-    private float xRotation = 0f; // Houdt de huidige verticale rotatie bij
+    private float xRotation = 0f;
 
     private Rigidbody rb;
+    private CapsuleCollider capsule;
+    private bool isGrounded;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        capsule = GetComponent<CapsuleCollider>();
+        carryScript = GetComponent<PlayerPickup>();
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        carryScript = GetComponent<PlayerPickup>();
     }
 
-    void Update() // Input wordt het best verwerkt in Update
+    void Update()
     {
-        // Muis input ophalen
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        // Mouse look
+        xRotation = Mathf.Clamp(xRotation - Input.GetAxis("Mouse Y") * mouseSensitivity, -verticalLookLimit, verticalLookLimit);
+        if (cameraHolder) cameraHolder.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensitivity);
 
-        // --- Verticale Rotatie (Op en Neer Kijken) ---
-        // We trekken mouseY eraf om de rotatie intutief te maken (muis omhoog = omhoog kijken)
-        xRotation -= mouseY;
-        // Beperk de rotatie zodat je niet over de kop kunt kijken
-        xRotation = Mathf.Clamp(xRotation, -verticalLookLimit, verticalLookLimit);
-
-        // Pas de rotatie toe op de CameraHolder
-        cameraHolder.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-
-        // --- Horizontale Rotatie (Links en Rechts Draaien) ---
-        // Roteer de speler zelf om de Y-as
-        transform.Rotate(Vector3.up * mouseX);
-
-        //Jumping
-        if (Input.GetKeyDown(KeyCode.Space) && !carryScript.isCarrying && isGrounded)
+        // Jump
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !carryScript.isCarrying)
         {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+            Vector3 vel = rb.linearVelocity; vel.y = 0f; rb.linearVelocity = vel;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-
-        // Linkermuisklik vergrendelt de cursor weer
-        if (Input.GetMouseButtonDown(0) && Cursor.visible)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
+        // Cursor
+        if (Input.GetKeyDown(KeyCode.Escape)) { Cursor.lockState = CursorLockMode.None; Cursor.visible = true; }
+        if (Input.GetMouseButtonDown(0) && Cursor.visible) { Cursor.lockState = CursorLockMode.Locked; Cursor.visible = false; }
     }
 
     void FixedUpdate()
     {
-        // Input voor beweging ophalen
-        float forwardInput = Input.GetAxis("Vertical");   // W / S
-        float strafeInput = Input.GetAxis("Horizontal");  // A / D
+        // Movement
+        float forward = Input.GetAxis("Vertical");
+        float strafe = Input.GetAxis("Horizontal");
+        currentSpeed = (!carryScript.isCarrying && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))) ? sprintSpeed : speed;
+        Vector3 move = (transform.forward * forward + transform.right * strafe).normalized;
+        rb.MovePosition(rb.position + move * currentSpeed * Time.fixedDeltaTime);
 
-        bool shiftPressed = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-
-        if (shiftPressed && !carryScript.isCarrying)
-        {
-            currentSpeed = sprintSpeed;
-        }
-        else
-        {
-            currentSpeed = speed;
-        }
-
-        // Beweging richting (vooruit/achteruit + links/rechts)
-        Vector3 moveDirection = transform.forward * forwardInput + transform.right * strafeInput;
-        moveDirection.Normalize(); // Zorg dat diagonale beweging niet sneller is
-        rb.MovePosition(rb.position + moveDirection * currentSpeed * Time.fixedDeltaTime);
-
-        //Anti doublejump
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundLayer);
-
+        // Ground check
+        Vector3 center = capsule.bounds.center;
+        float radius = capsule.radius * Mathf.Max(transform.localScale.x, transform.localScale.z);
+        float halfHeight = Mathf.Max(0f, capsule.height * transform.localScale.y / 2f - radius);
+        Vector3 top = center + Vector3.up * halfHeight;
+        Vector3 bottom = center - Vector3.up * halfHeight;
+        isGrounded = Physics.CheckCapsule(top, bottom + Vector3.down * groundedSkin, radius - 0.01f, groundLayer, QueryTriggerInteraction.Ignore);
     }
+
+    public bool IsGrounded() => isGrounded;
 }
