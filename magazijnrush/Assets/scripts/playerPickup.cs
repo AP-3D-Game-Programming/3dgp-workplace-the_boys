@@ -16,6 +16,21 @@ public class PlayerPickup : MonoBehaviour
     private Rigidbody heldRb = null;
     private HashSet<GameObject> nearbyObjects = new HashSet<GameObject>();
 
+    // animator 
+    private Animator playerAnimator;
+
+    // start functie (voor animations)
+    void Start()
+    {
+        // Haal de Animator-component op van de GameObject (Player)
+        playerAnimator = GetComponent<Animator>();
+
+        if (playerAnimator == null)
+        {
+            Debug.LogError("Animator component niet gevonden op de speler voor Pick-up animatie! Zorg dat de Animator component op de player zit.");
+        }
+    }
+
     void Update()
     {
         // Oppakken of neerleggen
@@ -23,6 +38,13 @@ public class PlayerPickup : MonoBehaviour
         {
             if (heldObject == null)
             {
+                // animation
+                if (playerAnimator != null)
+                {
+                    // animatie trigger bij pickup
+                    playerAnimator.SetTrigger("IsPickingUp");
+                }
+
                 PickupNearest();
 
             }
