@@ -4,45 +4,41 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
 public class playerController : MonoBehaviour
 {
+    // Referentie naar de camera die met de speler meedraait
     public Transform cameraHolder;
-    private PlayerPickup carryScript;
+    private PlayerPickup carryScript; // Referentie naar het script dat items kan oppakken
 
     [Header("Movement")]
-    public float speed = 5f;
-    public float sprintSpeed = 5.5f;
-    private float currentSpeed;
+    public float speed = 5f;          // Normale loopsnelheid
+    public float sprintSpeed = 5.5f;  // Sprint snelheid
+    private float currentSpeed;       // Huidige snelheid, afhankelijk van sprinten
 
     [Header("Jump")]
-    public float jumpForce = 7f;
-    public LayerMask groundLayer;
-    public float groundedSkin = 0.05f;
+    public float jumpForce = 7f;      // Kracht waarmee speler omhoog springt
+    public LayerMask groundLayer;     // Welke lagen tellen als "grond"
+    public float groundedSkin = 0.05f;// Kleine marge voor ground check
 
     [Header("Look")]
-    public float mouseSensitivity = 3f;
-    public float verticalLookLimit = 80f;
-    private float xRotation = 0f;
+    public float mouseSensitivity = 3f;   // Snelheid van muis/kijk beweging
+    public float verticalLookLimit = 80f; // Maximale verticale kijkhoek
+    private float xRotation = 0f;         // Houdt huidige verticale rotatie bij
 
-    private Rigidbody rb;
-    private CapsuleCollider capsule;
-    private bool isGrounded;
+    private Rigidbody rb;          // Rigidbody van de speler
+    private CapsuleCollider capsule;// Capsule collider van de speler
+    private bool isGrounded;       // Is speler op de grond?
 
-    // animator
-    private Animator anim;
+    private Animator anim;         // Animator component
 
     void Start()
     {
+        // Verkrijg benodigde componenten
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
+        rb.freezeRotation = true;       // Voorkom dat physics de rotatie breekt
         capsule = GetComponent<CapsuleCollider>();
         carryScript = GetComponent<PlayerPickup>();
-
-        // animator
         anim = GetComponent<Animator>();
-        if (anim == null)
-        {
-            Debug.LogError("Animator component not found on the player object! Did you forget to add it?");
-        }
 
+        // Initialiseer cursor in locked state
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -75,6 +71,9 @@ public class playerController : MonoBehaviour
                 anim.SetTrigger("IsJumping");
             }
         }
+        HandleLook();   // Verwerk camera en muis beweging
+        HandleJump();   // Verwerk springen
+        HandleCursor(); // Verwerk cursor lock/unlock
     }
 
     void FixedUpdate()
@@ -93,42 +92,112 @@ public class playerController : MonoBehaviour
         float forward = Input.GetAxis("Vertical");
         float strafe = Input.GetAxis("Horizontal");
         bool isMoving = (forward != 0 || strafe != 0);
+        HandleMovement();      // Verwerk speler beweging
+        UpdateGroundedState(); // Check of speler op de grond staat
+        UpdateAnimator();      // Update animator parameters
+    }
 
-        // BEREKEN OF ER BEWEGING IS
-        float inputMagnitude = Mathf.Abs(forward) + Mathf.Abs(strafe); // Hoeveel er bewogen wordt (0 tot 2)
-        isMoving = inputMagnitude > 0.01f; // Is de speler aan het bewegen
-        bool isSprinting = isMoving && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)); // speler aan het sprinten?
+    // --- CAMERA LOOK ---
+    void HandleLook()
+    {
+        // Verticale rotatie (op/af)
+        xRotation = Mathf.Clamp(xRotation - Input.GetAxis("Mouse Y") * mouseSensitivity,
+                                -verticalLookLimit, verticalLookLimit);
+        if (cameraHolder) cameraHolder.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-        // animation
-        if (anim != null)
+        // Horizontale rotatie (links/rechts)
+        transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensitivity);
+    }
+
+    // --- JUMP ---
+    void HandleJump()
+    {
+        // Alleen springen als speler op de grond staat
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            // 1. Walk/Idle: Alleen IsWalking is niet voldoende, IsSprinting moet IsWalking overrulen
-            anim.SetBool("IsWalking", isMoving && !isSprinting);
+            // Reset verticale snelheid zodat jumps consistent zijn
+            Vector3 vel = rb.linearVelocity;
+            vel.y = 0f;
+            rb.linearVelocity = vel;
 
-            // 2. Sprint: 
-            anim.SetBool("IsSprinting", isSprinting);
-
-            // Optioneel: Stel de snelheid in om de voetstappen te timen met de daadwerkelijke snelheid
-            // anim.SetFloat("Speed", currentSpeed); 
-        }
-
-        currentSpeed = (!carryScript.isCarrying && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))) ? sprintSpeed : speed;
-        Vector3 move = (transform.forward * forward + transform.right * strafe).normalized;
-        rb.MovePosition(rb.position + move * currentSpeed * Time.fixedDeltaTime);
-
-        // Ground check
-        Vector3 center = capsule.bounds.center;
-        float radius = capsule.radius * Mathf.Max(transform.localScale.x, transform.localScale.z);
-        float halfHeight = Mathf.Max(0f, capsule.height * transform.localScale.y / 2f - radius);
-        Vector3 top = center + Vector3.up * halfHeight;
-        Vector3 bottom = center - Vector3.up * halfHeight;
-        isGrounded = Physics.CheckCapsule(top, bottom + Vector3.down * groundedSkin, radius - 0.01f, groundLayer, QueryTriggerInteraction.Ignore);
-        if (anim != null)
-        {
-            // Vertel de Animator of de speler op de grond staat
-            anim.SetBool("IsGrounded", isGrounded);
+            // Voeg kracht toe om omhoog te springen
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
 
+    // --- CURSOR ---
+    void HandleCursor()
+    {
+        // ESC toont cursor
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
+        // Linkermuisklik vergrendelt cursor weer
+        if (Input.GetMouseButtonDown(0) && Cursor.visible)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+
+    // --- MOVEMENT ---
+    void HandleMovement()
+    {
+        // Input ophalen
+        float forward = Input.GetAxis("Vertical");
+        float strafe = Input.GetAxis("Horizontal");
+
+        // Check of speler beweegt
+        bool isMoving = Mathf.Abs(forward) + Mathf.Abs(strafe) > 0.01f;
+
+        // Check of speler sprint
+        bool isSprinting = isMoving && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
+
+        // Update animator parameters
+        if (anim != null)
+        {
+            anim.SetBool("IsWalking", isMoving && !isSprinting);
+            anim.SetBool("IsSprinting", isSprinting);
+        }
+
+        // Bereken huidige snelheid
+        currentSpeed = (!carryScript.isCarrying && isSprinting) ? sprintSpeed : speed;
+
+        // Bereken en voer beweging uit
+        Vector3 move = (transform.forward * forward + transform.right * strafe).normalized;
+        rb.MovePosition(rb.position + move * currentSpeed * Time.fixedDeltaTime);
+    }
+
+    // --- GROUND CHECK ---
+    void UpdateGroundedState()
+    {
+        if (capsule == null) { isGrounded = false; return; }
+
+        // Bereken startpunt en afstand van de raycast
+        Vector3 origin = transform.position + Vector3.up * groundedSkin; // iets omhoog zodat capsule niet direct raakt
+        float distance = (capsule.height / 2f) + groundedSkin;
+
+        // Raycast naar beneden om te checken of speler grounded is
+        isGrounded = Physics.Raycast(origin, Vector3.down, distance, groundLayer);
+
+        // Optionele debug lijn: groen = grounded, rood = niet grounded
+        Debug.DrawRay(origin, Vector3.down * distance, isGrounded ? Color.green : Color.red);
+    }
+
+    // --- ANIMATOR UPDATE ---
+    void UpdateAnimator()
+    {
+        if (anim != null)
+        {
+            // Update animator bools
+            anim.SetBool("IsGrounded", isGrounded);
+            anim.SetBool("IsJumping", !isGrounded); // spring animatie actief zolang speler in de lucht is
+        }
+    }
+
+    // Getter om van buitenaf te checken of speler op de grond staat
     public bool IsGrounded() => isGrounded;
 }
