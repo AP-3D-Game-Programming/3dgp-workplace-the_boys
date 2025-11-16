@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
 public class playerController : MonoBehaviour
@@ -44,6 +45,32 @@ public class playerController : MonoBehaviour
 
     void Update()
     {
+        // *** NIEUWE PAUZE-CHECK ***
+        if (PauseMenu.GameIsPaused)
+        {
+            // Stop de Update-functie onmiddellijk
+            return;
+        }
+
+        // OUDE CURSOR-LOGICA VERWIJDERD, nu geregeld door PauseMenu.cs
+
+        // Mouse look
+        xRotation = Mathf.Clamp(xRotation - Input.GetAxis("Mouse Y") * mouseSensitivity, -verticalLookLimit, verticalLookLimit);
+        if (cameraHolder) cameraHolder.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensitivity);
+
+        // Jump
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            Vector3 vel = rb.linearVelocity; vel.y = 0f; rb.linearVelocity = vel;
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+            // animation
+            if (anim != null)
+            {
+                anim.SetTrigger("IsJumping");
+            }
+        }
         HandleLook();   // Verwerk camera en muis beweging
         HandleJump();   // Verwerk springen
         HandleCursor(); // Verwerk cursor lock/unlock
@@ -51,6 +78,20 @@ public class playerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // *** NIEUWE PAUZE-CHECK ***
+        if (PauseMenu.GameIsPaused)
+        {
+            // Zorg ervoor dat de rigidbody volledig stopt, zelfs al is Time.timeScale = 0
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            // Stop de FixedUpdate-functie onmiddellijk
+            return;
+        }
+
+        // Movement
+        float forward = Input.GetAxis("Vertical");
+        float strafe = Input.GetAxis("Horizontal");
+        bool isMoving = (forward != 0 || strafe != 0);
         HandleMovement();      // Verwerk speler beweging
         UpdateGroundedState(); // Check of speler op de grond staat
         UpdateAnimator();      // Update animator parameters
