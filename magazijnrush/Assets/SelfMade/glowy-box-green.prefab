@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8757653851869085559
+--- !u!1001 &5546584115738909750
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8f3cda5c12392bc4cb5959c6669505b2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18.56
+      value: -16.29
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8f3cda5c12392bc4cb5959c6669505b2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -51,10 +51,10 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 8f3cda5c12392bc4cb5959c6669505b2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 317ed1e6a7bf54f448229638a9838fe1, type: 2}
+      objectReference: {fileID: 2100000, guid: f0f531841ac4e904cb1dd11b757d91ab, type: 2}
     - target: {fileID: 919132149155446097, guid: 8f3cda5c12392bc4cb5959c6669505b2, type: 3}
       propertyPath: m_Name
-      value: box-small (2)
+      value: glowy-box-green
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
